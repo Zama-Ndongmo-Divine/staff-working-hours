@@ -21,16 +21,35 @@ int main(int argc, char** argv)
 {
     sqlite3* DB;
     char* messaggeError;
-    int exit = sqlite3_open("example.db", &DB);
+    int exit = sqlite3_open("/home/wakanda/Desktop/Intro To MAD/management/database/staff_management.db", &DB);
     string query = "SELECT * FROM PERSON;";
   
     cout << "STATE OF TABLE BEFORE INSERT" << endl;
+
+    int id;
+    string fname;
+    string sname;
+    string age;
+    string address;
+    int salary;
+
+    cout << "Enter the users given id" << endl;
+    cin >> id;
+    cout << "First name" << endl;
+    cin >> fname;
+    cout << "Second name" << endl;
+    cin >> sname;
+    cout << "Age" << endl;
+    cin >> age;
+    cout << "User's Address" << endl;
+    cin >> address;
+    cout << "User's salary" << endl;
+    cin >> salary;
+   
   
     sqlite3_exec(DB, query.c_str(), callback, NULL, NULL);
   
-    string sql("INSERT INTO PERSON VALUES(1, 'STEVE', 'GATES', 30, 'PALO ALTO', 1000.0);"
-               "INSERT INTO PERSON VALUES(2, 'BILL', 'ALLEN', 20, 'SEATTLE', 300.22);"
-               "INSERT INTO PERSON VALUES(3, 'PAUL', 'JOBS', 24, 'SEATTLE', 9900.0);");
+    string sql("INSERT INTO PERSON VALUES(?, ?, ?, ?, ?, ?)",(id, fname, sname, age, address, salary));
   
     exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError);
     if (exit != SQLITE_OK) {
